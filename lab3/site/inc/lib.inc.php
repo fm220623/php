@@ -1,4 +1,15 @@
 <?php
+/**
+ * Генерирует HTML-таблицу с заданными количеством столбцов и строк.
+ *
+ * Таблица заполняется произведениями индексов строки и столбца.
+ * Также выводится количество вызовов этой функции на каждой странице.
+ *
+ * @param int $cols Количество столбцов таблицы (по умолчанию 10).
+ * @param int $rows Количество строк таблицы (по умолчанию 10).
+ * @param string $color Цвет фона для таблицы и заголовков (по умолчанию 'yellow').
+ * @return int Возвращает количество вызовов этой функции.
+ */
 function getTable(int $cols = 10, int $rows = 10, string $color = 'yellow'): int {
     static $count = 0;
     $count++;
@@ -27,6 +38,14 @@ function getTable(int $cols = 10, int $rows = 10, string $color = 'yellow'): int
     return $count;
 }
 
+/**
+ * Генерирует меню в виде списка (горизонтальное или вертикальное).
+ *
+ * @param array $menu Ассоциативный массив с элементами меню. Каждый элемент должен
+ *                    содержать ключи 'href' (ссылка) и 'link' (текст ссылки).
+ * @param bool $vertical Определяет, будет ли меню вертикальным (по умолчанию true).
+ * @return void
+ */
 function getMenu(array $menu, bool $vertical = true): void {
     echo '<ul class="menu' . ($vertical ? ' vertical' : ' horizontal') . '">';
     foreach ($menu as $item) {

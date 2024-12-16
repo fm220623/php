@@ -5,7 +5,7 @@
     $password = 'megaP@ssw0rd';
     $name = 'иван';
     $email = 'ivan@petrov.ru';
-    $code = '<?=$login?>'; // Здесь мы просто присваиваем строку с кодом
+    $code = '<?=$login?>';
 ?>
 <!doctype html>
 <html>
@@ -15,9 +15,16 @@
 </head>
 <body>
 <?php
-    // ЗАДАНИЕ 2
-    // Удаление пробелов и преобразование в строчные буквы
-    $login = strtolower(trim($login));
+    /**
+     * Функция checkPass проверяет сложность пароля.
+     *
+     * Пароль должен содержать минимум 8 символов, включать хотя бы одну заглавную букву,
+     * одну строчную букву и хотя бы одну цифру.
+     * Если пароль соответствует этим требованиям, функция возвращает true, иначе false.
+     *
+     * @param string $password Пароль, который необходимо проверить
+     * @return bool Возвращает true, если пароль соответствует требованиям, иначе false
+     */
     // Функция проверки сложности пароля
     function checkPass($password) {
         if (strlen($password) < 8) {
@@ -34,6 +41,7 @@
         }
         return true; // Пароль соответствует всем критериям
     }
+
     // Проверка сложности пароля
     $isPasswordComplex = checkPass($password);
     if ($isPasswordComplex) {
@@ -41,16 +49,19 @@
     } else {
         echo "Пароль не соответствует требованиям сложности.<br>";
     }
+
     // Преобразование первого символа имени в заглавный
     $name = ucfirst($name);
+
     // Проверка корректности email
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Email '$email' корректен.<br>";
     } else {
         echo "Email '$email' некорректен.<br>";
     }
+
     // Вывод значения переменной $code
-     echo "Значение переменной code: " . htmlspecialchars($code) . "<br>";
+    echo "Значение переменной code: " . htmlspecialchars($code) . "<br>";
 ?>
 </body>
 </html>
