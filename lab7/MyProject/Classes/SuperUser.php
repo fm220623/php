@@ -1,36 +1,41 @@
 <?php
 declare(strict_types=1);
 
-namespace Classes;
+// Объявление класса User
+namespace MyProject\Classes;
 
-require_once 'User.php';
+// Регистрируем автозагрузчик для классов
+spl_autoload_register(function ($class) {
+    // Преобразуем пространство имен и имя класса в путь
+    $class = str_replace('\\', '/', $class);
+    $file = __DIR__ . '/' . $class . '.php';
+    
+    // Проверяем, существует ли файл
+    if (file_exists($file)) {
+        require_once $file;
+    }
+});
 
-/**
- * Класс SuperUser, наследующий User.
- */
+// Объявление класса SuperUser, который наследует User
+namespace MyProject\Classes;
+
 class SuperUser extends User
 {
     public string $role;
 
-    /**
-     * Конструктор класса SuperUser.
-     * @param string $name Имя пользователя.
-     * @param string $login Логин пользователя.
-     * @param string $password Пароль пользователя.
-     * @param string $role Роль суперпользователя.
-     */
     public function __construct(string $name, string $login, string $password, string $role)
     {
         parent::__construct($name, $login, $password);
         $this->role = $role;
     }
 
-    /**
-     * Перегруженный метод showInfo(), выводящий информацию о суперпользователе.
-     */
     public function showInfo(): void
     {
         parent::showInfo();
         echo "Роль: {$this->role}<br>";
     }
 }
+
+// Использование классов
+$superUser = new SuperUser('Иван', 'ivan123', 'pass123', 'Администратор');
+$superUser->showInfo();

@@ -66,7 +66,7 @@ $color = ($color) ? $color : '#ffff00';
       <li><a href='about.php'>О нас</a></li>
       <li><a href='contact.php'>Контакты</a></li>
       <li><a href='table.php'>Таблица умножения</a></li>
-      <li><a href='calc.php'>Калькулятор</a></li>
+      <li><a href='calculator.php'>Калькулятор</a></li>
     </ul>
   </nav>
   <footer>

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 // Задание 1: Сохранение посещённой страницы в сессии
 
 // Включаем настройки для работы с сессиями до начала сессии
@@ -16,6 +17,9 @@ if (!isset($_SESSION['visited_pages'])) {
     $_SESSION['visited_pages'] = array();
 }
 
-// Добавляем текущую страницу в массив посещённых
-$_SESSION['visited_pages'][] = $_SERVER['REQUEST_URI'];
+// Получаем текущий путь без query string
+$currentPage = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Добавляем страницу (включая повторения)
+$_SESSION['visited_pages'][] = $currentPage;
 ?>

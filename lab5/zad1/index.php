@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 // Устанавливаем константу для хранения имени файла
 define('GUESTS_FILE', 'db/guests.txt');
 
-// ЗАДАНИЕ 1
 // Проверяем, отправлялась ли форма и корректно ли отправлены данные из формы
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Фильтруем полученные значения
@@ -20,6 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Перезапрашиваем текущую страницу
         header('Location: ' . $_SERVER['PHP_SELF']);
         exit;
+    } else {
+        // Выводим сообщение об ошибке, если поля пустые
+        $error = "Пожалуйста, заполните оба поля: Имя и Фамилия.";
     }
 }
 ?>
@@ -36,15 +39,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <h1>Заполните форму</h1>
 
-<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
-    Имя: <input type="text" name="fname"><br>
-    Фамилия: <input type="text" name="lname"><br>
+<?php
+// Если есть ошибка, выводим её
+if (!empty($error)) {
+    echo "<p style='color: red;'>$error</p>";
+}
+?>
+
+<form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+    Имя: <input type="text" name="fname" required value="<?= isset($fname) ? htmlspecialchars($fname) : '' ?>"><br>
+    Фамилия: <input type="text" name="lname" required value="<?= isset($lname) ? htmlspecialchars($lname) : '' ?>"><br>
     <br>
     <input type="submit" value="Отправить!">
 </form>
 
 <?php
-// ЗАДАНИЕ 2
 // Проверяем, существует ли файл с информацией о пользователях
 if (file_exists(GUESTS_FILE)) {
     // Получаем все содержимое файла в виде массива строк

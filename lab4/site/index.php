@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 include 'inc/lib.inc.php';
 include 'inc/data.inc.php';
 		/*

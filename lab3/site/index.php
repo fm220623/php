@@ -1,5 +1,5 @@
-
 <?php
+declare(strict_types=1);
 include 'inc/lib.inc.php';
 include 'inc/data.inc.php';
 		/*
@@ -54,7 +54,6 @@ include 'inc/data.inc.php';
     <?php include 'inc/top.inc.php'; ?>
     <!-- Верхняя часть страницы -->
   </header>
-
   <section>
     <?php include 'inc/index.inc.php'; ?>
   </section>

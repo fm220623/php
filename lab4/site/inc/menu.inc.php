@@ -8,7 +8,7 @@
         ['link' => 'О нас', 'href' => 'about.php'],
         ['link' => 'Контакты', 'href' => 'contact.php'],
         ['link' => 'Таблица умножения', 'href' => 'table.php'],
-        ['link' => 'Калькулятор', 'href' => 'calc.php']
+        ['link' => 'Калькулятор', 'href' => 'calculator.php']
         ];
         getMenu($leftmenu);
     ?>
