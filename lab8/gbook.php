@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once 'config.php';
 
 // Подключение к MySQL
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 if (!$conn) {
     die("Ошибка подключения: " . mysqli_connect_error());
@@ -19,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Фильтрация данных
         $name = mysqli_real_escape_string($conn, htmlspecialchars(trim($_POST['name'])));
         $email = mysqli_real_escape_string($conn, htmlspecialchars(trim($_POST['email'])));
-        $msg = mysqli_real_escape_string($conn, htmlspecialchars(trim($_POST['msg'])));
+        // Разрешить некоторые HTML-теги в сообщении, например <b>, <i>, <h1>, <h2>, <p>, <br>
+        $msg = mysqli_real_escape_string($conn, strip_tags(trim($_POST['msg']), '<b><i><h1><h2><p><br>'));
 
         // SQL-запрос на вставку
         $sql = "INSERT INTO msgs (name, email, msg) VALUES ('$name', '$email', '$msg')";
@@ -81,7 +83,8 @@ if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<div>";
         echo "<p><strong>Автор:</strong> " . htmlspecialchars($row['name']) . " (" . htmlspecialchars($row['email']) . ")</p>";
-        echo "<p><strong>Сообщение:</strong> " . nl2br(htmlspecialchars($row['msg'])) . "</p>";
+        // Вывод сообщения без htmlspecialchars, чтобы сохранялись HTML-теги
+        echo "<p><strong>Сообщение:</strong> " . nl2br($row['msg']) . "</p>";
         echo "<p><a href='?delete_id=" . $row['id'] . "' onclick='return confirm(\"Удалить сообщение?\");'>Удалить</a></p>";
         echo "</div><hr>";
     }

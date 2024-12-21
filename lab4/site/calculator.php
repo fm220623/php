@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Проверка валидности чисел
     if ($num1 === false || $num2 === false) {
-        echo "<p style='color: red;'>Пожалуйста, введите корректные числа.</p>";
+        $result = "Пожалуйста, введите корректные числа.";
     } else {
         // Вычисление результата
         switch ($operator) {
@@ -31,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             case '/':
                 if ($num2 == 0) {
-                    echo "<p style='color: red;'>Ошибка: Деление на ноль невозможно.</p>";
+                    $result = "Ошибка: Деление на ноль невозможно.";
                 } else {
                     $result = $num1 / $num2;
                 }
                 break;
             default:
-                echo "<p style='color: red;'>Неизвестный оператор.</p>";
+                $result = "Неизвестный оператор.";
         }
     }
 }
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <section>
         <h1>Калькулятор</h1>
 
-        <?php if (isset($result)): ?>
+        <?php if ($result !== null): ?>
             <h2>Результат: <?= htmlspecialchars((string)$result) ?></h2>
         <?php endif; ?>
 

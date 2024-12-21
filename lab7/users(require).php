@@ -5,8 +5,8 @@ declare(strict_types=1);
 require_once 'MyProject/Classes/User.php';
 require_once 'MyProject/Classes/SuperUser.php';
 
-use Classes\User;
-use Classes\SuperUser;
+use MyProject\Classes\User;
+use MyProject\Classes\SuperUser;
 
 // Создание пользователей
 $user1 = new User("Иван Иванов", "ivanov", "pass123");

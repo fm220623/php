@@ -1,9 +1,22 @@
 <?php
 // ЗАДАНИЕ 1
 $now = time();
-$birthday = strtotime('2004-03-11');
+$birthdayMonthDay = '03-11'; // День и месяц дня рождения (без года)
+$currentYear = date('Y');
 $currentDate = getdate($now);
 $hour = $currentDate['hours'];
+
+// Вычисление следующего дня рождения
+$nextBirthday = strtotime("$currentYear-$birthdayMonthDay");
+if ($nextBirthday < $now) {
+    $nextBirthday = strtotime(($currentYear + 1) . "-$birthdayMonthDay");
+}
+
+$timeRemaining = $nextBirthday - $now;
+$days = floor($timeRemaining / (60 * 60 * 24));
+$hours = floor(($timeRemaining % (60 * 60 * 24)) / (60 * 60));
+$minutes = floor(($timeRemaining % (60 * 60)) / 60);
+$seconds = $timeRemaining % 60;
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -43,17 +56,7 @@ $hour = $currentDate['hours'];
 	echo "<p>" . $format->format($now) . "</p>";
 
 	echo "<p>До моего дня рождения осталось:</p>";
-    $timeRemaining = $birthday - $now;
-	if ($timeRemaining > 0) {
-		$days = floor($timeRemaining / (60 * 60 * 24));
-		$hours = floor(($timeRemaining % (60 * 60 * 24)) / (60 * 60));
-		$minutes = floor(($timeRemaining % (60 * 60)) / 60);
-		$seconds = $timeRemaining % 60;
-
-		echo "<p>$days дней, $hours часов, $minutes минут и $seconds секунд.</p>";
-	} else {
-		echo "<p>Ваш день рождения уже прошел в этом году!</p>";
-	}
+	echo "<p>$days дней, $hours часов, $minutes минут и $seconds секунд.</p>";
 	?>
 </body>
 </html>
